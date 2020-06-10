@@ -1,28 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>App.vue</h1>
+    <ul>
+      <li
+        v-for="todo in todos"
+        :key="todo.id"
+      >{{ todo.title }} ({{ todo.completed ? '完了' : '未完了' }})</li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState } from "vuex";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  computed: {
+    ...mapState(["todos"])
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+

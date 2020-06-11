@@ -2,20 +2,24 @@
   <div id="app">
     <h1>App.vue</h1>
     <ul>
-      <li
-        v-for="todo in todos"
-        :key="todo.id"
-      >{{ todo.title }} ({{ todo.completed ? '完了' : '未完了' }})</li>
+      <template v-for="todo in $store.state.todos">
+        <li
+          v-if="todo.completed"
+          :key="todo.id"
+          @click="initTodo({id: todo.id})"
+        >{{ todo.title }} (完了)</li>
+        <li v-else :key="todo.id" @click="completeTodo({id: todo.id})">{{ todo.title }} (未完了)</li>
+      </template>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
-  computed: {
-    ...mapState(["todos"])
+  methods: {
+    ...mapMutations(["completeTodo", "initTodo"])
   }
 };
 </script>
